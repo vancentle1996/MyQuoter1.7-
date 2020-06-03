@@ -22,6 +22,9 @@ import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.Color;
 import java.awt.SystemColor;
 
@@ -76,12 +79,18 @@ public class MyQuoter1_7 extends JFrame {
 	private String totalOutWithFee; 
 	private String totalOutWithoutFee; 
 	private DecimalFormat myFormatter = new DecimalFormat("#,###,##0.00");
+	private final double EXTRA_FOR_WIGS = 2.0;
 	
 	
 	/**
 	 * Launch the application.
+	 * @throws UnsupportedLookAndFeelException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -128,33 +137,6 @@ public class MyQuoter1_7 extends JFrame {
 		patterns = new JComboBox<>();
 		patterns.setFont(new Font("Century", Font.PLAIN, 14));
 		patterns.setMaximumRowCount(30);
-		patterns.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent choose) {
-				try {
-										
-					if(patterns.getSelectedIndex() >= 0 && patterns.getSelectedIndex() <= 8) {
-						bundles_and_wigs_lengths.setEnabled(true);
-						closure_and_frontal_lengths.setEnabled(false);
-					}
-					if(patterns.getSelectedIndex() >= 9 && patterns.getSelectedIndex() <= 29) {
-						closure_and_frontal_lengths.setEnabled(true);
-						bundles_and_wigs_lengths.setEnabled(false);
-					}
-					if(patterns.getSelectedIndex() >= 30 && patterns.getSelectedIndex() <= 43) {
-						bundles_and_wigs_lengths.setEnabled(true);
-						closure_and_frontal_lengths.setEnabled(false);	
-					}
-					if(patterns.getSelectedIndex() >= 44 && patterns.getSelectedIndex() <= 46) {
-						bundles_and_wigs_lengths.setEnabled(true);
-						closure_and_frontal_lengths.setEnabled(false);
-					}
-					
-				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 						
 		//bundles
 		patterns.addItem("Straight");patterns.addItem("Loose Wave");patterns.addItem("Body Wave");patterns.addItem("Deep Wave");
@@ -199,21 +181,21 @@ public class MyQuoter1_7 extends JFrame {
 						case 7:totalPrice += bundle.blonde(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bundle.blonde(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 8:totalPrice += bundle.grey(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bundle.grey(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						
-						case 32:totalPrice += closureWigs.straightClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.straightClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 33:totalPrice += closureWigs.looseClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.looseClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 34:totalPrice += closureWigs.bodyClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.bodyClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 35:totalPrice += closureWigs.deepClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.deepClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 36:totalPrice += closureWigs.rareClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.rareClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 37:totalPrice += closureWigs.steam1ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.steam1ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 38:totalPrice += closureWigs.steam2ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = closureWigs.steam2ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 32:totalPrice += (closureWigs.straightClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.straightClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 33:totalPrice += (closureWigs.looseClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.looseClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 34:totalPrice += (closureWigs.bodyClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.bodyClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 35:totalPrice += (closureWigs.deepClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.deepClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 36:totalPrice += (closureWigs.rareClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.rareClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 37:totalPrice += (closureWigs.steam1ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.steam1ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 38:totalPrice += (closureWigs.steam2ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = closureWigs.steam2ClosureWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						
-						case 39:totalPrice += frontalWigs.straightFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.straightFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 40:totalPrice += frontalWigs.looseFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.looseFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 41:totalPrice += frontalWigs.bodyFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.bodyFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 42:totalPrice += frontalWigs.deepFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.deepFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 43:totalPrice += frontalWigs.rareFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.rareFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 44:totalPrice += frontalWigs.steam1FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.steam1FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
-						case 45:totalPrice += frontalWigs.steam2FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontalWigs.steam2FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 39:totalPrice += (frontalWigs.straightFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.straightFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 40:totalPrice += (frontalWigs.looseFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.looseFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 41:totalPrice += (frontalWigs.bodyFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.bodyFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 42:totalPrice += (frontalWigs.deepFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.deepFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 43:totalPrice += (frontalWigs.rareFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.rareFrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 44:totalPrice += (frontalWigs.steam1FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.steam1FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						case 45:totalPrice += (frontalWigs.steam2FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()) * quantity) + (EXTRA_FOR_WIGS * quantity); pricePerBundle = frontalWigs.steam2FrontalWig(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						
 						case 46:totalPrice += clip_In.bodyClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = clip_In.bodyClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 47:totalPrice += clip_In.rareClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = clip_In.rareClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
@@ -321,6 +303,15 @@ public class MyQuoter1_7 extends JFrame {
 		ups_textField.setColumns(10);
 		
 		upsRadioBtn = new JRadioButton("UPS/FedEx");
+		upsRadioBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(upsRadioBtn.isSelected() && ups_textField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Note: You must enter the shipping fee first before selecting this button.");
+					upsRadioBtn.setSelected(false);
+				}
+			}
+		});
+		upsRadioBtn.setForeground(Color.BLACK);
 		upsRadioBtn.setBackground(SystemColor.controlShadow);
 		upsRadioBtn.setFont(new Font("Century", Font.PLAIN, 12));
 		
@@ -330,14 +321,12 @@ public class MyQuoter1_7 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				patterns.setSelectedIndex(0);
 				bundles_and_wigs_lengths.setSelectedIndex(0);
-				closure_and_frontal_lengths.setSelectedIndex(0);
-				bundles_and_wigs_lengths.setEnabled(true);
-				closure_and_frontal_lengths.setEnabled(false);
+				closure_and_frontal_lengths.setSelectedIndex(1);
 				quantity_spinner.setValue(1);
 				usps_mediumbox.setSelected(false);
 				usps_standard_shipping.setSelected(false);
 				usps_express_shipping.setSelected(false);
-				ups_textField.setText(null);
+				ups_textField.setText("");
 				upsRadioBtn.setSelected(false);
 				tax_btn.setSelected(false);
 				total.setText(null);
@@ -346,6 +335,7 @@ public class MyQuoter1_7 extends JFrame {
 				quan.removeAllElements();
 				totalPrice = 0;
 				totalQuantity = 0;
+				taxamount = 0;
 			}
 		});
 		
@@ -356,6 +346,7 @@ public class MyQuoter1_7 extends JFrame {
 				double p = price.pop(); 
 				int q = quan.pop();
 				double newTotal;
+				totalQuantity = totalQuantity - q;
 				newTotal = totalPrice - (p * q);
 				totalPrice = newTotal;
 				orderStack.pop();
@@ -370,15 +361,15 @@ public class MyQuoter1_7 extends JFrame {
 		calculate_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(usps_mediumbox.isSelected()) {
-					chosenShipping = Double.toString(mediumbox_shipping_fee) + " (Priority Mail - takes about 2-3 days)";
+					chosenShipping = Double.toString(mediumbox_shipping_fee) + " (USPS Priority Mail - takes about 2-3 days)";
 					totalPrice += mediumbox_shipping_fee;
 				}
 				if(usps_standard_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_standard_shipping_fee) + " (Priority Mail - takes about 2-3 days)";
+					chosenShipping = Double.toString(usps_standard_shipping_fee) + " (USPS Priority Mail - takes about 2-3 days)";
 					totalPrice += usps_standard_shipping_fee;
 				}
 				if(usps_express_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_express_shipping_fee) + " (Priority Express - takes about 1-2 day(s))";
+					chosenShipping = Double.toString(usps_express_shipping_fee) + " (USPS Priority Express - takes about 1-2 day(s))";
 					totalPrice += usps_express_shipping_fee;
 				}
 				if(upsRadioBtn.isSelected()) { 
@@ -401,9 +392,10 @@ public class MyQuoter1_7 extends JFrame {
 				
 				total.append("\nTotal Quantity: " + totalQuantity + " piece(s)\n"
 						+ "Shipping Fee: $" + chosenShipping + "\n"
-						+ "Total WITH PayPal fee: " + totalOutWithFee + "\n"
-						+ "Total WITHOUT PayPal fee: " + totalOutWithoutFee + "\n"
-						+ "\nPlease note that we add $1 apiece to the totals because that's the shipping fee of hair from Cambodia to the United States.\n"
+						+ "Total WITH PayPal fee: $" + totalOutWithFee + "\n"
+						+ "Total WITHOUT PayPal fee: $" + totalOutWithoutFee + "\n"
+						+ "Georgia Sale Tax Amount: $" + myFormatter.format(taxamount) + "\n"
+						+ "\nPlease note that we add $1 apiece (for bundles, closures & frontals) and $3 apiece for wigs, to the totals because that's the shipping fee of hair from Cambodia to the United States.\n"
 						+ "---------------------------------------------\n"
 						+ "Cash App ID: $joshswift12\n"
 						+ "Zelle Info: 401-499-0419\n"
@@ -416,6 +408,7 @@ public class MyQuoter1_7 extends JFrame {
 		calculate_Btn.setFont(new Font("Open Sans Extrabold", Font.BOLD, 25));
 		
 		tax_btn = new JRadioButton("Georgia Sale Tax (8%)");
+		tax_btn.setForeground(Color.BLACK);
 		tax_btn.setBackground(SystemColor.controlShadow);
 		tax_btn.setFont(new Font("Century", Font.PLAIN, 13));
 		
@@ -429,21 +422,23 @@ public class MyQuoter1_7 extends JFrame {
 						.addComponent(scrollPane_for_textfield, GroupLayout.PREFERRED_SIZE, 518, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(closure_and_frontal_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(bundles_and_wigs_lengths, 0, 82, Short.MAX_VALUE))
-										.addGap(76)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-											.addComponent(add_btn_2, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-											.addComponent(add_btn_1, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))
-									.addComponent(patterns, Alignment.TRAILING, 0, 238, Short.MAX_VALUE)
-									.addComponent(calculate_Btn, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(98)
-									.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
-							.addGap(45)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(patterns, 0, 238, Short.MAX_VALUE)
+										.addComponent(calculate_Btn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(bundles_and_wigs_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(add_btn_1, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+											.addGap(44)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(closure_and_frontal_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(add_btn_2, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))
+									.addGap(33))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(76)
+									.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(tax_btn)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -458,7 +453,7 @@ public class MyQuoter1_7 extends JFrame {
 												.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
 												.addComponent(gobackBtn, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
 											.addGap(38)))))))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addGap(35))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -467,16 +462,16 @@ public class MyQuoter1_7 extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(patterns, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(11)
+							.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(add_btn_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(bundles_and_wigs_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(bundles_and_wigs_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(closure_and_frontal_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(closure_and_frontal_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(add_btn_2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(add_btn_2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+								.addComponent(add_btn_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(shipping_methods, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -485,7 +480,7 @@ public class MyQuoter1_7 extends JFrame {
 								.addComponent(upsRadioBtn))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(tax_btn)))
-					.addPreferredGap(ComponentPlacement.UNRELATED, 35, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(calculate_Btn, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -505,16 +500,43 @@ public class MyQuoter1_7 extends JFrame {
 		scrollPane_for_textfield.setViewportView(total);
 		
 		usps_mediumbox = new JRadioButton("USPS Medium Box");
+		usps_mediumbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(totalQuantity > 50) {
+					JOptionPane.showMessageDialog(null, "NOTE: The total quantity exceeds 50 pieces, consider UPS/FedEx.");
+					usps_mediumbox.setSelected(false);
+				}
+			}
+		});
+		usps_mediumbox.setForeground(Color.BLACK);
 		usps_mediumbox.setBackground(SystemColor.controlShadow);
 		usps_mediumbox.setFont(new Font("Century", Font.PLAIN, 12));
 		shipping_methods.add(usps_mediumbox);
 		
 		usps_standard_shipping = new JRadioButton("USPS Standard Shipping ");
+		usps_standard_shipping.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(totalQuantity > 20) {
+					JOptionPane.showMessageDialog(null, "NOTE: The total quantity exceeds 20 pieces, consider USPS Medium Box or UPS/FedEx.");
+					usps_standard_shipping.setSelected(false);
+				}
+			}
+		});
+		usps_standard_shipping.setForeground(Color.BLACK);
 		usps_standard_shipping.setBackground(SystemColor.controlShadow);
 		usps_standard_shipping.setFont(new Font("Century", Font.PLAIN, 12));
 		shipping_methods.add(usps_standard_shipping);
 		
 		usps_express_shipping = new JRadioButton("USPS Express Shipping ");
+		usps_express_shipping.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(totalQuantity > 20) {
+					JOptionPane.showMessageDialog(null, "NOTE: The total quantity exceeds 20 pieces, consider USPS Medium Box or UPS/FedEx.");
+					usps_express_shipping.setSelected(false);
+				}
+			}
+		});
+		usps_express_shipping.setForeground(Color.BLACK);
 		usps_express_shipping.setBackground(SystemColor.controlShadow);
 		usps_express_shipping.setFont(new Font("Century", Font.PLAIN, 12));
 		shipping_methods.add(usps_express_shipping);
