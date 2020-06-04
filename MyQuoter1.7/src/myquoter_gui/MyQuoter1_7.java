@@ -3,7 +3,10 @@ package myquoter_gui;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
+import java.util.TreeSet;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +23,9 @@ import javax.swing.JRadioButton;
 import javax.swing.Box;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
@@ -84,7 +90,8 @@ public class MyQuoter1_7 extends JFrame {
 	private JTextField name_txtfield;
 	private JButton search_Btn;
 	private JButton update_Btn;
-	private List<String> namesList = new ArrayList<String>();
+	private TreeSet<String> namesList = new TreeSet<>(); 
+
 	
 	/**
 	 * Launch the application.
@@ -340,6 +347,7 @@ public class MyQuoter1_7 extends JFrame {
 				totalPrice = 0;
 				totalQuantity = 0;
 				taxamount = 0;
+				name_txtfield.setText(null);
 			}
 		});
 		
@@ -419,29 +427,43 @@ public class MyQuoter1_7 extends JFrame {
 		search_Btn = new JButton("Search");
 		search_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent search) {
-				if(namesList.contains(name_txtfield.getText().toLowerCase())) {
-					JOptionPane.showMessageDialog(null, "The client has a tax ID number");
+				try 
+				{
+					Scanner scanner = new Scanner(new File("names"));
+					while(scanner.hasNextLine()) {
+						String s = scanner.nextLine().toLowerCase();
+						namesList.add(s);
+					}
+					if(namesList.contains(name_txtfield.getText().toLowerCase())) {
+						JOptionPane.showMessageDialog(null, "The Client Has a Tax ID Number");
+					}else {
+						JOptionPane.showMessageDialog(null, "The Client's Name Not Found in The Record, Consider Update It");
+					}
 					name_txtfield.setText(null);
-				}else {
-					JOptionPane.showMessageDialog(null, "The client does not have a tax ID number");
-					name_txtfield.setText(null);
+				}catch(IOException ioe) 
+				{
+					ioe.printStackTrace();
+				}
+			}
+		});
+			
+		update_Btn = new JButton("Update");
+		update_Btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent search) {
+				try
+				{
+				    FileWriter fw = new FileWriter("names", true); //the true will append the new data
+				    fw.write(name_txtfield.getText().toLowerCase()+"\n");//appends the string to the file
+				    fw.close();
+				    name_txtfield.setText(null);
+				}
+				catch(IOException ioe)
+				{
+				    ioe.printStackTrace();
 				}
 			}
 		});
 		
-		update_Btn = new JButton("Update");
-		update_Btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent search) {
-				if(!(namesList.contains(name_txtfield.getText().toLowerCase()))) {
-					namesList.add(name_txtfield.getText().toLowerCase());
-					JOptionPane.showMessageDialog(null, "The Name Is Added To The List Successfully!");
-					name_txtfield.setText(null);
-				}else {
-					JOptionPane.showMessageDialog(null, "The Client's Name Is Already In The List.");
-					name_txtfield.setText(null);
-				}
-			}
-		});
 		name_txtfield = new JTextField();
 		name_txtfield.setColumns(10);
 		
