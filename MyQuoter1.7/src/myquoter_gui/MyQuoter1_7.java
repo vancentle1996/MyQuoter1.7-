@@ -1,6 +1,8 @@
 package myquoter_gui;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,7 +26,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import java.awt.Color;
 import java.awt.SystemColor;
 
@@ -80,7 +81,10 @@ public class MyQuoter1_7 extends JFrame {
 	private String totalOutWithoutFee; 
 	private DecimalFormat myFormatter = new DecimalFormat("#,###,##0.00");
 	private final double EXTRA_FOR_WIGS = 2.0;
-	
+	private JTextField name_txtfield;
+	private JButton search_Btn;
+	private JButton update_Btn;
+	private List<String> namesList = new ArrayList<String>();
 	
 	/**
 	 * Launch the application.
@@ -412,6 +416,35 @@ public class MyQuoter1_7 extends JFrame {
 		tax_btn.setBackground(SystemColor.controlShadow);
 		tax_btn.setFont(new Font("Century", Font.PLAIN, 13));
 		
+		search_Btn = new JButton("Search");
+		search_Btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent search) {
+				if(namesList.contains(name_txtfield.getText().toLowerCase())) {
+					JOptionPane.showMessageDialog(null, "The client has a tax ID number");
+					name_txtfield.setText(null);
+				}else {
+					JOptionPane.showMessageDialog(null, "The client does not have a tax ID number");
+					name_txtfield.setText(null);
+				}
+			}
+		});
+		
+		update_Btn = new JButton("Update");
+		update_Btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent search) {
+				if(!(namesList.contains(name_txtfield.getText().toLowerCase()))) {
+					namesList.add(name_txtfield.getText().toLowerCase());
+					JOptionPane.showMessageDialog(null, "The Name Is Added To The List Successfully!");
+					name_txtfield.setText(null);
+				}else {
+					JOptionPane.showMessageDialog(null, "The Client's Name Is Already In The List.");
+					name_txtfield.setText(null);
+				}
+			}
+		});
+		name_txtfield = new JTextField();
+		name_txtfield.setColumns(10);
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -423,10 +456,10 @@ public class MyQuoter1_7 extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(patterns, 0, 238, Short.MAX_VALUE)
-										.addComponent(calculate_Btn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(patterns, 0, 264, Short.MAX_VALUE)
+										.addComponent(calculate_Btn, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 												.addComponent(bundles_and_wigs_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 												.addComponent(add_btn_1, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
@@ -441,19 +474,25 @@ public class MyQuoter1_7 extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(tax_btn)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(ups_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(upsRadioBtn, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(ups_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(upsRadioBtn, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+								.addComponent(shipping_methods, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(shipping_methods, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-												.addComponent(gobackBtn, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-											.addGap(38)))))))
-					.addGap(35))
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+											.addComponent(gobackBtn, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(search_Btn)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(update_Btn, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))
+									.addGap(13)))))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -490,6 +529,13 @@ public class MyQuoter1_7 extends JFrame {
 					.addGap(18)
 					.addComponent(scrollPane_for_textfield, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
 					.addGap(22))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(149, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(search_Btn)
+						.addComponent(update_Btn)
+						.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(444))
 		);
 		total = new JTextArea();
 		total.setForeground(SystemColor.menu);
