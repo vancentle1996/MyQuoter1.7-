@@ -373,21 +373,21 @@ public class MyQuoter1_7 extends JFrame {
 		calculate_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(usps_mediumbox.isSelected()) {
-					chosenShipping = Double.toString(mediumbox_shipping_fee) + " (USPS Priority Mail - takes about 2-3 days)";
+					chosenShipping = Double.toString(mediumbox_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
 					totalPrice += mediumbox_shipping_fee;
 				}
 				if(usps_standard_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_standard_shipping_fee) + " (USPS Priority Mail - takes about 2-3 days)";
+					chosenShipping = Double.toString(usps_standard_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
 					totalPrice += usps_standard_shipping_fee;
 				}
 				if(usps_express_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_express_shipping_fee) + " (USPS Priority Express - takes about 1-2 day(s))";
+					chosenShipping = Double.toString(usps_express_shipping_fee + totalQuantity) + " (USPS Priority Express - takes about 1-2 day(s))";
 					totalPrice += usps_express_shipping_fee;
 				}
 				if(upsRadioBtn.isSelected()) { 
 					ups_fedex_shipping_fee = Double.parseDouble(ups_textField.getText());
 					totalPrice += ups_fedex_shipping_fee;
-					chosenShipping = Double.toString(ups_fedex_shipping_fee) + " (UPS/FedEx - takes about 1-2 day(s))";
+					chosenShipping = Double.toString(ups_fedex_shipping_fee + totalQuantity) + " (UPS/FedEx - takes about 1-2 day(s))";
 				}
 				if(tax_btn.isSelected()) {
 					taxamount = totalPrice * .08;
