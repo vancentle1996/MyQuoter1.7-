@@ -372,50 +372,59 @@ public class MyQuoter1_7 extends JFrame {
 		calculate_Btn = new JButton("CALCULATE");
 		calculate_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(usps_mediumbox.isSelected()) {
-					chosenShipping = Double.toString(mediumbox_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
-					totalPrice += mediumbox_shipping_fee;
-				}
-				if(usps_standard_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_standard_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
-					totalPrice += usps_standard_shipping_fee;
-				}
-				if(usps_express_shipping.isSelected()) {
-					chosenShipping = Double.toString(usps_express_shipping_fee + totalQuantity) + " (USPS Priority Express - takes about 1-2 day(s))";
-					totalPrice += usps_express_shipping_fee;
-				}
-				if(upsRadioBtn.isSelected()) { 
-					ups_fedex_shipping_fee = Double.parseDouble(ups_textField.getText());
-					totalPrice += ups_fedex_shipping_fee;
-					chosenShipping = Double.toString(ups_fedex_shipping_fee + totalQuantity) + " (UPS/FedEx - takes about 1-2 day(s))";
-				}
-				if(tax_btn.isSelected()) {
-					taxamount = totalPrice * .08;
-					totalPrice += taxamount;
-				}
-				//with fee
-				totalWithFee = (totalPrice + totalQuantity + .30) * 1.03;
-				totalOutWithFee = myFormatter.format(totalWithFee);
+				if(usps_mediumbox.isSelected() == false && usps_standard_shipping.isSelected() == false && usps_express_shipping.isSelected() == false && upsRadioBtn.isSelected() == false)
+				{
+					JOptionPane.showMessageDialog(null, "Please choose a shipping method.");
+					
+				} 
+				else 
+				{
+					if(usps_mediumbox.isSelected()) {
+						chosenShipping = Double.toString(mediumbox_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
+						totalPrice += mediumbox_shipping_fee;
+					}
+					if(usps_standard_shipping.isSelected()) {
+						chosenShipping = Double.toString(usps_standard_shipping_fee + totalQuantity) + " (USPS Priority Mail - takes about 2-3 days)";
+						totalPrice += usps_standard_shipping_fee;
+					}
+					if(usps_express_shipping.isSelected()) {
+						chosenShipping = Double.toString(usps_express_shipping_fee + totalQuantity) + " (USPS Priority Express - takes about 1-2 day(s))";
+						totalPrice += usps_express_shipping_fee;
+					}
+					if(upsRadioBtn.isSelected()) { 
+						ups_fedex_shipping_fee = Double.parseDouble(ups_textField.getText());	
+						totalPrice += ups_fedex_shipping_fee;
+						chosenShipping = Double.toString(ups_fedex_shipping_fee + totalQuantity) + " (UPS/FedEx - takes about 1-2 day(s))";
+					}
+					if(tax_btn.isSelected()) {
+						taxamount = totalPrice * .08;
+						totalPrice += taxamount;
+					}
+					//with fee
+					totalWithFee = (totalPrice + totalQuantity + .30) * 1.03;
+					totalOutWithFee = myFormatter.format(totalWithFee);
 
-				//without fee
-				totalWithoutFee = totalPrice + totalQuantity;
-				totalOutWithoutFee = myFormatter.format(totalWithoutFee);
+					//without fee
+					totalWithoutFee = totalPrice + totalQuantity;
+					totalOutWithoutFee = myFormatter.format(totalWithoutFee);
+					
+					
+					total.append("\nTotal Quantity: " + totalQuantity + " piece(s)\n"
+							+ "Shipping Fee: $" + chosenShipping + "\n"
+							+ "Total WITH PayPal fee: $" + totalOutWithFee + "\n"
+							+ "Total WITHOUT PayPal fee: $" + totalOutWithoutFee + "\n"
+							+ "Georgia Sale Tax Amount: $" + myFormatter.format(taxamount) + "\n"
+							+ "\nPlease note that we add $1 apiece (for bundles, closures & frontals) and $3 apiece for wigs, to the totals because that's the shipping fee of hair from Cambodia to the United States.\n"
+							+ "---------------------------------------------\n"
+							+ "Cash App ID: $joshswift12\n"
+							+ "Zelle Info: 401-499-0419\n"
+							+ "PayPal info: kingdomofwonder178@gmail.com\n"
+							+ "---------------------------------------------\n"
+							+ "NOTE 1 & 2: \n1. Please kindly send us your first & last name along with your shipping address and a screenshot of your payment(s) if you choose to pay via Cash App or Zelle. Thanks!\n"
+							+ "2. If you're located in Georgia, you can send us your tax ID number to avoid the tax, otherwise we will charge you an 8% tax on the order.");
+				}
+				}
 				
-				
-				total.append("\nTotal Quantity: " + totalQuantity + " piece(s)\n"
-						+ "Shipping Fee: $" + chosenShipping + "\n"
-						+ "Total WITH PayPal fee: $" + totalOutWithFee + "\n"
-						+ "Total WITHOUT PayPal fee: $" + totalOutWithoutFee + "\n"
-						+ "Georgia Sale Tax Amount: $" + myFormatter.format(taxamount) + "\n"
-						+ "\nPlease note that we add $1 apiece (for bundles, closures & frontals) and $3 apiece for wigs, to the totals because that's the shipping fee of hair from Cambodia to the United States.\n"
-						+ "---------------------------------------------\n"
-						+ "Cash App ID: $joshswift12\n"
-						+ "Zelle Info: 401-499-0419\n"
-						+ "PayPal info: kingdomofwonder178@gmail.com\n"
-						+ "---------------------------------------------\n"
-						+ "NOTE 1 & 2: \n1. Please kindly send us your first & last name along with your shipping address and a screenshot of your payment(s) if you choose to pay via Cash App or Zelle. Thanks!\n"
-						+ "2. If you're located in Georgia, you can send us your tax ID number to avoid the tax, otherwise we will charge you an 8% tax on the order.");
-			}
 		});
 		calculate_Btn.setFont(new Font("Open Sans Extrabold", Font.BOLD, 25));
 		
