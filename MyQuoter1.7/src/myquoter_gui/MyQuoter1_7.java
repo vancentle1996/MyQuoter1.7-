@@ -34,6 +34,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
 
 public class MyQuoter1_7 extends JFrame {
 
@@ -69,6 +70,12 @@ public class MyQuoter1_7 extends JFrame {
 	private FrontalPrice frontals = new FrontalPrice();
 	private FrontalWigs frontalWigs = new FrontalWigs();
 	private BundlesPrice bundle = new BundlesPrice();
+	private LooseWaveS looseWS = new LooseWaveS();
+	private BodyHeavyClip bodyHClip = new BodyHeavyClip();
+	private RareHeavyClip rareHClip = new RareHeavyClip();
+	private LooseDoubleWeft looseDouble = new LooseDoubleWeft();
+	private BodyDoubleWeft bodyDouble = new BodyDoubleWeft();
+	private SteamDoubleWeft steamDouble = new SteamDoubleWeft();
 	private int quantity;
 	private double totalPrice;
 	private double pricePerBundle;
@@ -91,6 +98,7 @@ public class MyQuoter1_7 extends JFrame {
 	private JButton search_Btn;
 	private JButton update_Btn;
 	private TreeSet<String> namesList = new TreeSet<>(); 
+	private JTextField live_quantity;
 
 	
 	/**
@@ -101,7 +109,7 @@ public class MyQuoter1_7 extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+		UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -119,7 +127,7 @@ public class MyQuoter1_7 extends JFrame {
 	 */
 	public MyQuoter1_7() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 597, 665);
+		setBounds(100, 100, 815, 786);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.controlShadow);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -127,7 +135,7 @@ public class MyQuoter1_7 extends JFrame {
 		
 		quantity_spinner = new JSpinner();
 		quantity_spinner.setBackground(Color.GRAY);
-		quantity_spinner.setFont(new Font("Century", Font.PLAIN, 12));
+		quantity_spinner.setFont(new Font("Century", Font.PLAIN, 16));
 		quantity_spinner.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
 		
 		shipping_methods = Box.createVerticalBox();
@@ -136,26 +144,28 @@ public class MyQuoter1_7 extends JFrame {
 		scrollPane_for_textfield = new JScrollPane();
 		
 		bundles_and_wigs_lengths = new JComboBox<String>();
+		bundles_and_wigs_lengths.setFont(new Font("Century", Font.PLAIN, 12));
 		bundles_and_wigs_lengths.setMaximumRowCount(11);
 		bundles_and_wigs_lengths.addItem("10\"");bundles_and_wigs_lengths.addItem("12\"");bundles_and_wigs_lengths.addItem("14\"");bundles_and_wigs_lengths.addItem("16\"");bundles_and_wigs_lengths.addItem("18\"");
 		bundles_and_wigs_lengths.addItem("20\"");bundles_and_wigs_lengths.addItem("22\"");bundles_and_wigs_lengths.addItem("24\"");bundles_and_wigs_lengths.addItem("26\"");bundles_and_wigs_lengths.addItem("28\"");bundles_and_wigs_lengths.addItem("30\"");
 		
 		closure_and_frontal_lengths = new JComboBox<String>();
+		closure_and_frontal_lengths.setFont(new Font("Century", Font.PLAIN, 12));
 		closure_and_frontal_lengths.setMaximumRowCount(6);
 		closure_and_frontal_lengths.addItem("10\"");closure_and_frontal_lengths.addItem("12\"");closure_and_frontal_lengths.addItem("14\"");
 		closure_and_frontal_lengths.addItem("16\"");closure_and_frontal_lengths.addItem("18\"");closure_and_frontal_lengths.addItem("20\"");
 		
 		patterns = new JComboBox<>();
-		patterns.setFont(new Font("Century", Font.PLAIN, 14));
+		patterns.setFont(new Font("Century", Font.PLAIN, 16));
 		patterns.setMaximumRowCount(30);
 						
 		//bundles
 		patterns.addItem("Straight");patterns.addItem("Loose Wave");patterns.addItem("Body Wave");patterns.addItem("Deep Wave");
 		patterns.addItem("Rare Curly");patterns.addItem("Steam #1");patterns.addItem("Steam #2");patterns.addItem("Blonde");patterns.addItem("Grey");
 		//closures 
-		patterns.addItem("Straight Closure");patterns.addItem("Loose Wave Closure");patterns.addItem("Body Wave Closure");
-		patterns.addItem("Deep Wave Closure");patterns.addItem("Rare Curly Closure");patterns.addItem("Steam #1 Closure");
-		patterns.addItem("Steam #2 Closure");patterns.addItem("Blonde Closure");patterns.addItem("Grey Closure");
+		patterns.addItem("Straight 4x4 Closure");patterns.addItem("Loose Wave 4x4 Closure");patterns.addItem("Body Wave 4x4 Closure");
+		patterns.addItem("Deep Wave 4x4 Closure");patterns.addItem("Rare Curly 4x4 Closure");patterns.addItem("Steam #1 4x4 Closure");
+		patterns.addItem("Steam #2 4x4 Closure");patterns.addItem("Blonde 4x4 Closure");patterns.addItem("Grey 4x4 Closure");
 		
 		patterns.addItem("Straight 5x5 Closure");patterns.addItem("Loose Wave 5x5 Closure");patterns.addItem("Body Wave 5x5 Closure");
 		patterns.addItem("Deep Wave 5x5 Closure");patterns.addItem("Rare Curly 5x5 Closure");
@@ -175,13 +185,32 @@ public class MyQuoter1_7 extends JFrame {
 		//clip-in
 		patterns.addItem("Body wave clip-in");patterns.addItem("Rare curly clip-in");patterns.addItem("Steam curly clip-in");
 		
+		//loose wave (S)
+		patterns.addItem("Loose wave (S)");
+		
+		//heavy clip
+		patterns.addItem("Body wave HEAVY clip");
+		patterns.addItem("Rare curly HEAVY clip");
+		
+		//5x5 blonde closure
+		patterns.addItem("Blonde 5x5 Closure");
+		
+		//DOUBLE WEFT
+		patterns.addItem("Loose wave DOUBLE WEFT");
+		patterns.addItem("Body wave DOUBLE WEFT");
+		patterns.addItem("Steam curly DOUBLE WEFT");
+
+				
+		
+		
 		add_btn_1 = new JButton("ADD"); //responsible for bundles_and_wigs_lengths combo box
-		add_btn_1.setFont(new Font("Open Sans Extrabold", Font.BOLD, 12));
+		add_btn_1.setFont(new Font("Century", Font.BOLD, 12));
 		add_btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent add) {
 				try {
 					quantity = Integer.parseInt(quantity_spinner.getValue().toString());
 					switch(patterns.getSelectedIndex()) {
+					
 						case 0:totalPrice += bundle.straight(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bundle.straight(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 1:totalPrice += bundle.loose(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bundle.loose(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 2:totalPrice += bundle.body(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bundle.body(bundles_and_wigs_lengths.getSelectedIndex()); break;
@@ -211,6 +240,19 @@ public class MyQuoter1_7 extends JFrame {
 						case 46:totalPrice += clip_In.bodyClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = clip_In.bodyClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 47:totalPrice += clip_In.rareClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = clip_In.rareClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
 						case 48:totalPrice += clip_In.steam1Clip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = clip_In.steam1Clip(bundles_and_wigs_lengths.getSelectedIndex()); break;
+					
+						case 49:totalPrice += looseWS.looseS(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = looseWS.looseS(bundles_and_wigs_lengths.getSelectedIndex()); break;
+	
+						case 50:totalPrice += bodyHClip.bodyHeavyClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bodyHClip.bodyHeavyClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						
+						case 51:totalPrice += rareHClip.rareHeavyClip(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = rareHClip.rareHeavyClip(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						
+						case 53:totalPrice += looseDouble.looseDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = looseDouble.looseDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						
+						case 54:totalPrice += bodyDouble.bodyDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = bodyDouble.bodyDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()); break;
+						
+						case 55:totalPrice += steamDouble.steamDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()) * quantity; pricePerBundle = steamDouble.steamDoubleWeft(bundles_and_wigs_lengths.getSelectedIndex()); break;
+
 					}
 					
 					price.push(pricePerBundle);
@@ -235,7 +277,8 @@ public class MyQuoter1_7 extends JFrame {
 						total.append(bundles_and_wigs_lengths.getItemAt(bundles_and_wigs_lengths.getSelectedIndex()) + " x " + quantity_spinner.getValue().toString() 
 						+ " - " + s + "*" + quantity_spinner.getValue().toString() + "\n");
 					}
-					totalQuantity += quantity;					
+					totalQuantity += quantity;	
+					live_quantity.setText(Integer.toString(totalQuantity));
 					
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -275,6 +318,9 @@ public class MyQuoter1_7 extends JFrame {
 						case 29: totalPrice += frontals.steam2Frontal(closure_and_frontal_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontals.steam2Frontal(closure_and_frontal_lengths.getSelectedIndex()); break;
 						case 30: totalPrice += frontals.blondeFrontal(closure_and_frontal_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontals.blondeFrontal(closure_and_frontal_lengths.getSelectedIndex()); break;
 						case 31: totalPrice += frontals.greyFrontal(closure_and_frontal_lengths.getSelectedIndex()) * quantity; pricePerBundle = frontals.greyFrontal(closure_and_frontal_lengths.getSelectedIndex()); break;
+						
+						case 52: totalPrice += closures.blonde5x5Closure(closure_and_frontal_lengths.getSelectedIndex()) * quantity; pricePerBundle = closures.blonde5x5Closure(closure_and_frontal_lengths.getSelectedIndex()); break;
+
 					}
 					
 					price.push(pricePerBundle);
@@ -300,14 +346,14 @@ public class MyQuoter1_7 extends JFrame {
 						+ " - " + s + "*" + quantity_spinner.getValue().toString() + "\n");
 					}
 					totalQuantity += quantity;
-
+					live_quantity.setText(Integer.toString(totalQuantity));
 					
 				}catch(Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
-		add_btn_2.setFont(new Font("Open Sans Extrabold", Font.BOLD, 12));
+		add_btn_2.setFont(new Font("Century", Font.BOLD, 12));
 		
 		ups_textField = new JTextField("");
 		ups_textField.setFont(new Font("Century", Font.PLAIN, 13));
@@ -348,6 +394,8 @@ public class MyQuoter1_7 extends JFrame {
 				totalQuantity = 0;
 				taxamount = 0;
 				name_txtfield.setText(null);
+				live_quantity.setText(null);
+				
 			}
 		});
 		
@@ -476,33 +524,42 @@ public class MyQuoter1_7 extends JFrame {
 		name_txtfield = new JTextField();
 		name_txtfield.setColumns(10);
 		
+		live_quantity = new JTextField();
+		live_quantity.setHorizontalAlignment(SwingConstants.RIGHT);
+		live_quantity.setEditable(false);
+		live_quantity.setFont(new Font("Century", Font.PLAIN, 20));
+		live_quantity.setColumns(10);
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_for_textfield, GroupLayout.PREFERRED_SIZE, 518, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane_for_textfield, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(patterns, 0, 264, Short.MAX_VALUE)
-										.addComponent(calculate_Btn, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(bundles_and_wigs_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(add_btn_1, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-											.addGap(44)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(closure_and_frontal_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(add_btn_2, GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))
+										.addComponent(calculate_Btn, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+										.addComponent(patterns, 0, 481, Short.MAX_VALUE))
 									.addGap(33))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(76)
-									.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
+									.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+									.addGap(204)
+									.addComponent(live_quantity, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(add_btn_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(bundles_and_wigs_lengths, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(closure_and_frontal_lengths, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(add_btn_2, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+									.addGap(282)))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(tax_btn)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -511,37 +568,37 @@ public class MyQuoter1_7 extends JFrame {
 									.addComponent(upsRadioBtn, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
 								.addComponent(shipping_methods, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-											.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-											.addComponent(gobackBtn, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
-										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(search_Btn)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(update_Btn, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(search_Btn, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(update_Btn, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+								.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(gobackBtn, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+										.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
 									.addGap(13)))))
-					.addContainerGap())
+					.addGap(25))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(19)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(patterns, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(11)
-							.addComponent(quantity_spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(patterns, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(live_quantity, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+								.addComponent(quantity_spinner, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+							.addGap(32)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(bundles_and_wigs_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(closure_and_frontal_lengths, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(bundles_and_wigs_lengths, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addComponent(closure_and_frontal_lengths, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(add_btn_2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(add_btn_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(add_btn_2, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+								.addComponent(add_btn_1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(shipping_methods, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -549,9 +606,15 @@ public class MyQuoter1_7 extends JFrame {
 								.addComponent(ups_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(upsRadioBtn))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(tax_btn)))
-					.addPreferredGap(ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(tax_btn)
+							.addGap(18)
+							.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(update_Btn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(search_Btn, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+							.addGap(60)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(calculate_Btn, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(clearBtn, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
@@ -560,13 +623,6 @@ public class MyQuoter1_7 extends JFrame {
 					.addGap(18)
 					.addComponent(scrollPane_for_textfield, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
 					.addGap(22))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(149, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(search_Btn)
-						.addComponent(update_Btn)
-						.addComponent(name_txtfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(444))
 		);
 		total = new JTextArea();
 		total.setForeground(SystemColor.menu);

@@ -1,7 +1,8 @@
 package myquoter_gui;
 
 public class ClosuresPrice {
-	double straightClosurePrice, looseClosurePrice, bodyClosurePrice, deepClosurePrice, rareClosurePrice, steam1ClosurePrice, steam2ClosurePrice, blondeClosurePrice, greyClosurePrice; //closures
+	double straightClosurePrice, looseClosurePrice, bodyClosurePrice, deepClosurePrice, rareClosurePrice, 
+	steam1ClosurePrice, steam2ClosurePrice, blondeClosurePrice, blonde55ClosurePrice, greyClosurePrice; //closures
 	
 	public double straightClosure(int index) {
 		switch(index) {
@@ -97,6 +98,18 @@ public class ClosuresPrice {
 			case 5: blondeClosurePrice = 85; break;
 		}
 		return blondeClosurePrice;
+	}
+	
+	public double blonde5x5Closure(int index) {
+		switch(index) {
+			case 0: blonde55ClosurePrice = 75; break;
+			case 1: blonde55ClosurePrice = 80; break;
+			case 2: blonde55ClosurePrice = 85; break;
+			case 3: blonde55ClosurePrice = 90; break;
+			case 4: blonde55ClosurePrice = 95; break;
+			case 5: blonde55ClosurePrice = 100; break;	
+		}
+		return blonde55ClosurePrice;
 	}
 	
 	public double greyClosure(int index) {
