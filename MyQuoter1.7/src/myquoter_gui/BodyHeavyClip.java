@@ -18,7 +18,7 @@ public class BodyHeavyClip {
 			case 9: bodyHeavyClipPrice = 105.75; break;
 			case 10: bodyHeavyClipPrice = 109.50; break;
 		}
-		return bodyHeavyClipPrice;
+		return bodyHeavyClipPrice;  
 	}
 }
 
