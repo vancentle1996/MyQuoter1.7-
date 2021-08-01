@@ -7,17 +7,17 @@ public class LooseDoubleWeft {
 	public double looseDoubleWeft(int index) {
 		
 		switch(index) {
-			case 0: looseD = 46; break;
-			case 1: looseD = 48.50; break;
-			case 2: looseD = 52; break;
-			case 3: looseD = 54.50; break;
-			case 4: looseD = 57; break;
-			case 5: looseD = 59.50; break;
-			case 6: looseD = 62; break;
-			case 7: looseD = 64.50; break;
-			case 8: looseD = 67; break;
-			case 9: looseD = 69.50; break;
-			case 10: looseD = 72; break;
+			case 0: looseD = 48; break;
+			case 1: looseD = 50.50; break;
+			case 2: looseD = 54; break;
+			case 3: looseD = 56.50; break;
+			case 4: looseD = 59; break;
+			case 5: looseD = 61.50; break;
+			case 6: looseD = 64; break;
+			case 7: looseD = 66.50; break;
+			case 8: looseD = 69; break;
+			case 9: looseD = 71.50; break;
+			case 10: looseD = 74; break;
 		}
 		return looseD;
 	}

@@ -83,7 +83,7 @@ public class MyQuoter1_7 extends JFrame {
 	private JButton calculate_Btn;
 	private double taxamount;
 	private double mediumbox_shipping_fee = 15;
-	private double usps_standard_shipping_fee = 8;
+	private double usps_standard_shipping_fee = 10;
 	private double usps_express_shipping_fee = 24;
 	private double ups_fedex_shipping_fee;
 	private String chosenShipping;
@@ -465,7 +465,7 @@ public class MyQuoter1_7 extends JFrame {
 							+ "\nPlease note that we add $1 apiece (for bundles, closures & frontals) and $3 apiece for wigs, to the totals because that's the shipping fee of hair from Cambodia to the United States.\n"
 							+ "---------------------------------------------\n"
 							+ "Cash App ID: $joshswift12\n"
-							+ "Zelle Info: 401-499-0419\n"
+							+ "Zelle Info: 401-426-1999\n"
 							+ "PayPal info: kingdomofwonder178@gmail.com\n"
 							+ "---------------------------------------------\n"
 							+ "NOTE 1 & 2: \n1. Please kindly send us your first & last name along with your shipping address and a screenshot of your payment(s) if you choose to pay via Cash App or Zelle. Thanks!\n"

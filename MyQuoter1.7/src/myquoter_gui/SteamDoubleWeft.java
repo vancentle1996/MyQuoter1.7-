@@ -7,17 +7,17 @@ public class SteamDoubleWeft {
 	public double steamDoubleWeft(int index) {
 		
 		switch(index) {
-			case 0: steamD = 50.50; break;
-			case 1: steamD = 53; break;
-			case 2: steamD = 56.50; break;
-			case 3: steamD = 59; break;
-			case 4: steamD = 61.50; break;
-			case 5: steamD = 64; break;
-			case 6: steamD = 66.50; break;
-			case 7: steamD = 69; break;
-			case 8: steamD = 71.50; break;
-			case 9: steamD = 74; break;
-			case 10: steamD = 76.50; break;
+			case 0: steamD = 52.50; break;
+			case 1: steamD = 55; break;
+			case 2: steamD = 58.50; break;
+			case 3: steamD = 61; break;
+			case 4: steamD = 63.50; break;
+			case 5: steamD = 66; break;
+			case 6: steamD = 68.50; break;
+			case 7: steamD = 71; break;
+			case 8: steamD = 73.50; break;
+			case 9: steamD = 76; break;
+			case 10: steamD = 78.50; break;
 		}
 		return steamD;
 	}
