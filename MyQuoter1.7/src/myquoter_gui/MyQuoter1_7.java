@@ -56,7 +56,7 @@ public class MyQuoter1_7 extends JFrame {
 	private JComboBox<String> bundles_and_wigs_lengths;
 	private JComboBox<String> closure_and_frontal_lengths;
 	private Stack<String> orderStack = new Stack<String>();
-	private Stack<Double> price = new Stack<Double>();
+	private Stack<Double> price = new Stack<Double>(); 
 	private Stack<Integer> quan = new Stack<Integer>();
 	private JButton clearBtn;
 	private JButton gobackBtn;
