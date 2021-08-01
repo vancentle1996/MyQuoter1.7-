@@ -67,7 +67,7 @@ public class MyQuoter1_7 extends JFrame {
 	private Closure5x5 closure5x5 = new Closure5x5();
 	private ClosuresPrice closures = new ClosuresPrice();
 	private ClosureWigs closureWigs = new ClosureWigs();
-	private FrontalPrice frontals = new FrontalPrice();
+	private FrontalPrice frontals = new FrontalPrice(); 
 	private FrontalWigs frontalWigs = new FrontalWigs();
 	private BundlesPrice bundle = new BundlesPrice();
 	private LooseWaveS looseWS = new LooseWaveS();
