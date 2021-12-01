@@ -190,7 +190,7 @@ public class MyQuoter1_7 extends JFrame {
 		
 		//heavy clip
 		patterns.addItem("Body wave HEAVY clip");
-		patterns.addItem("Rare curly HEAVY clip");
+		patterns.addItem("Rare curly HEAVY clip"); 
 		
 		//5x5 blonde closure
 		patterns.addItem("Blonde 5x5 Closure");
