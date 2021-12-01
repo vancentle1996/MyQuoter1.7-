@@ -83,8 +83,8 @@ public class MyQuoter1_7 extends JFrame {
 	private JButton calculate_Btn;
 	private double taxamount;
 	private double mediumbox_shipping_fee = 15;
-	private double usps_standard_shipping_fee = 10;
-	private double usps_express_shipping_fee = 24;
+	private double usps_standard_shipping_fee = 12;
+	private double usps_express_shipping_fee = 26;
 	private double ups_fedex_shipping_fee;
 	private String chosenShipping;
 	private int totalQuantity = 0;
@@ -449,7 +449,7 @@ public class MyQuoter1_7 extends JFrame {
 						totalPrice += taxamount;
 					}
 					//with fee
-					totalWithFee = (totalPrice + totalQuantity + .30) * 1.03;
+					totalWithFee = (totalPrice + totalQuantity + .30) * 1.035;
 					totalOutWithFee = myFormatter.format(totalWithFee);
 
 					//without fee
