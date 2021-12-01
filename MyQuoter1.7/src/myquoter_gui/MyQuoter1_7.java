@@ -186,7 +186,7 @@ public class MyQuoter1_7 extends JFrame {
 		patterns.addItem("Body wave clip-in");patterns.addItem("Rare curly clip-in");patterns.addItem("Steam curly clip-in");
 		
 		//loose wave (S)
-		patterns.addItem("Loose wave (S)");
+		patterns.addItem("Loose wave (S)"); 
 		
 		//heavy clip
 		patterns.addItem("Body wave HEAVY clip");
